@@ -1,0 +1,63 @@
+set nocompatible
+set t_RV=
+
+set encoding=utf-8
+
+filetype plugin indent on
+syntax enable           " open syntax highlight
+
+set t_Co=256
+set t_ut=""
+set background=dark     " dark back ground
+colorscheme lucius      " theme
+
+set ruler               " show the cursor position below
+set number              " show line number on left side
+set showcmd             " show incomplete commad in last line
+set showmode            " show mode below
+set cursorline          " highlight cursor line
+set laststatus=2        " display how many status line
+set scrolloff=3         " keep 3 line when scrolling
+
+set hlsearch            " highlight search result
+set incsearch           " do incremental searching
+set ignorecase          " ignore case when searching, use \c turn off
+set smartcase           " no ignorecase if uppercase char present
+
+set shiftwidth=4        " indent width
+set softtabstop=4       " tab width
+set expandtab           " tab always insert softtabstop of amonut spaces 
+set autoindent          " copy the indentation of the previous line
+set smartindent         " auto indent to next level, work on C-like file
+set shiftround          " round the indentation to the nearest multiple of shiftwidth
+
+set foldmethod=indent   " ues indent fold
+ 
+set showmatch           " when you insert bracket, 
+set matchtime=1         "    the cursor will briefly jump to the matching one
+
+set nobackup            " not keep the backup file
+
+set linebreak           " if text warp, no break on word
+
+set wildmenu            " show the commom complete list, can use Tab and S-Tab
+
+set backspace=indent,eol,start  " make that backspace key work the way it should
+
+set novisualbell        " turn off visual bell
+set visualbell t_vb=    " turn off error beep/flash
+
+
+" set gcr=a:block-blinkon0        " no cursor blink
+" set guioptions-=l               " no scrollbar
+" set guioptions-=L               " |
+" set guioptions-=r               " |
+" set guioptions-=R               " |
+" set guioptions-=m               " no menu
+" set guioptions-=T               " no tool bar
+
+"-----common-----"
+
+
+source $_SOURCE/vimrc.keymap
+source $_SOURCE/vimrc.plugin

@@ -1,0 +1,58 @@
+"-----plug-----"
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'   
+Plug 'yggdroot/indentline'
+Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'for': ['cpp', 'h'] }
+Plug 'w0rp/ale'
+Plug 'easymotion/vim-easymotion'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
+"Plug 'tpope/vim-unimpaired'
+"Plug 'preservim/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'terryma/vim-expand-region'
+
+call plug#end()
+
+
+    ""----cpp enhanced highlight----""
+let g:cpp_class_scope_highlight = 1
+
+    ""----airline----""
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+    ""----ale----""
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
+let g:airline#extensions#ale#enabled = 1
+let airline#extensions#ale#error_symbol = 'E'
+let airline#extensions#ale#warning_symbol = 'W'
+
+   ""----indent line----""
+let g:indentLine_char = '|'
+
+    ""----nerd tree----"
+"autocmd vimenter * NERDTree
+"nmap <Leader>t :NERDTreeToggle<CR>
+"let NERDTreeWinSize=32
+"let NERDTreeMinimalUI=1
+"let NERDTreeShowHidden=1
+"let NERDTreeAutoDeleteBuffer=1
+"let NERDTreeShowLineNumbers=1
+"let NERDTreeAutoCenter=1
+"let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd vimenter * if !argc()|NERDTree|endif
+
+    ""----expand region----""
+" vmap v <Plug>(expand_region_expand)
+" vmap <C-v> <Plug>(expand_region_shrink)
+
+
+"-----plug-----"

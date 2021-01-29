@@ -1,31 +1,16 @@
-"-----plug-----"
-call plug#begin('~/.vim/plugged')
+" polylot
+let g:polyglot_disabled = ['sensible']
+let g:vim_markdown_conceal = 0
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'   
-Plug 'yggdroot/indentline'
-Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'for': ['cpp', 'h'] }
-Plug 'w0rp/ale'
-Plug 'easymotion/vim-easymotion'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-
-"Plug 'tpope/vim-unimpaired'
-"Plug 'preservim/nerdtree'
-"Plug 'Xuyuanp/nerdtree-git-plugin'
-"Plug 'terryma/vim-expand-region'
-
-call plug#end()
-
-
-    ""----cpp enhanced highlight----""
+" cpp enhanced highlight
 let g:cpp_class_scope_highlight = 1
 
-    ""----airline----""
+" airline
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
-    ""----ale----""
+" ale
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_sign_column_always = 1
@@ -34,25 +19,58 @@ let g:airline#extensions#ale#enabled = 1
 let airline#extensions#ale#error_symbol = 'E'
 let airline#extensions#ale#warning_symbol = 'W'
 
-   ""----indent line----""
+" indent line
 let g:indentLine_char = '|'
 
-    ""----nerd tree----"
-"autocmd vimenter * NERDTree
-"nmap <Leader>t :NERDTreeToggle<CR>
-"let NERDTreeWinSize=32
-"let NERDTreeMinimalUI=1
-"let NERDTreeShowHidden=1
-"let NERDTreeAutoDeleteBuffer=1
-"let NERDTreeShowLineNumbers=1
-"let NERDTreeAutoCenter=1
-"let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"autocmd vimenter * if !argc()|NERDTree|endif
+" YCM 
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_disable_signature_help = 1
 
-    ""----expand region----""
-" vmap v <Plug>(expand_region_expand)
-" vmap <C-v> <Plug>(expand_region_shrink)
+let g:ycm_semantic_triggers =  {
+           \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{3}'],
+           \ 'cs,lua,javascript': ['re!\w{3}'],
+           \ }
+highlight PMenu ctermfg=249 ctermbg=238 
 
 
-"-----plug-----"
+" asyncrun
+let g:asyncrun_open = 6
+let g:asyncrun_bell = 1
+nnoremap <F1> :call asyncrun#quickfix_toggle(6)<cr>
+
+" instant markdown
+let g:instant_markdown_browser = "firefox --new-window"
+let g:instant_markdown_mathjax = 1
+let g:instant_markdown_autostart = 0
+command Mp InstantMarkdownPreview
+command Ms InstantMarkdownStop
+
+
+" Install Plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'   
+Plug 'yggdroot/indentline'
+
+Plug 'w0rp/ale'
+Plug 'sheerun/vim-polyglot'
+Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'for': ['cpp', 'h'] }
+
+Plug 'ycm-core/YouCompleteMe'
+Plug 'easymotion/vim-easymotion'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'tpope/vim-unimpaired'
+
+"Plug 'terryma/vim-expand-region'
+"Plug 'preservim/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+
+call plug#end()
+

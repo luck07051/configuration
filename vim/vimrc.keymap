@@ -4,7 +4,7 @@
 
 " let space be Leader
 let mapleader="\<Space>"
-"let space no effect
+" let space no effect
 map <Space> :<CR>
 
 " remap defalut key
@@ -12,13 +12,17 @@ map Y y$
 map ~ g~
 map 0 ^
 map Q gq
-nmap <Leader>q  :wq!<CR>
+nmap <Leader>q  :q<CR>
 nmap <Leader>w  :w<CR>
 nmap <Leader>x  :x<CR>
+nmap <Leader>Q  :qall<CR>
 map <Leader>m %
 map <Leader>d "_d
 map <Leader>D "_D
-
+map <Leader>y "+y
+map <Leader>Y "+Y
+map <Leader>p "+p
+map <Leader>P "+P
 
 " move between windows
 map <Leader>j <C-w>j
@@ -36,79 +40,29 @@ map <C-l> :bnext<CR>
 nnoremap <Leader>nh :nohlsearch<CR>
 nnoremap <Leader>= gg=G''
 
+nnoremap <Leader><Leader>s :vsplit<CR>35<C-w><
+
 nnoremap <F5> :source $MYVIMRC<CR>
 
-""----no auto comment new line----""
-autocmd filetype * set formatoptions-=c formatoptions-=r formatoptions-=o
 
-""----Return to last edit position when opening files----""
-" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif 
-
-""----Copy or change search hit----""
+" Copy or change search hit
 vnoremap <silent> s 
             \//e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
             \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
-""----no extra space----""
-autocmd BufWrite *.cpp,*.h,makefile call DeleteExtraSpaces()
-function DeleteExtraSpaces()
-    :let b:nline= line('.')
-    :%s/\s\+$//e
-    :execute "to ".b:nline
-endfunction
 
-
-""----auto .H setting----""
-nmap <F3> :let @t = expand("%")<CR>
-            \i#ifndef <Esc>"tpo#define <Esc>"tp<C-v>BhkU
-            \2:s/\./_/g<CR><C-v>k$A_<Esc> 
-            \jo#endif<Esc>:nohlsearch<CR><S-o><CR><CR><Esc>ki
-
-
-
-
-""----Set a nicer foldtext function----""
-set foldtext=MyFoldText()
-function! MyFoldText()
-    let line = getline(v:foldstart)
-    if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
-        let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
-        let linenum = v:foldstart + 1
-        while linenum < v:foldend
-            let line = getline( linenum )
-            let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
-            if comment_content != ''
-                break
-            endif
-            let linenum = linenum + 1
-        endwhile
-        let sub = initial . ' ' . comment_content
-    else
-        let sub = line
-        let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
-        if startbrace == '{'
-            let line = getline(v:foldend)
-            let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
-            if endbrace == '}'
-                let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
-            endif
-        endif
-    endif
-    let n = v:foldend - v:foldstart + 1
-    let info = " " . n . " lines"
-    let sub = sub . "                                                                                                                  "
-    let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
-    let fold_w = getwinvar( 0, '&foldcolumn' )
-    let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
-    return sub . info
-endfunction
 
 
 """"""""""""""
 " plugin map "
 """"""""""""""
 
-"for ALE
+" for ALE
 nmap <silent> <Leader>r :ALENext<cr>
 nmap <silent> <Leader>R :ALEPrevious<cr>
+
+" for unimparied
+nmap <Leader><Space>j ]<Space>
+nmap <Leader><Space>k [<Space>
+

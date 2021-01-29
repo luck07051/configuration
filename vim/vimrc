@@ -14,7 +14,7 @@ colorscheme lucius      " theme
 set ruler               " show the cursor position below
 set number              " show line number on left side
 set showcmd             " show incomplete commad in last line
-set showmode            " show mode below
+set noshowmode          " dont show mode below
 set cursorline          " highlight cursor line
 set laststatus=2        " display how many status line
 set scrolloff=3         " keep 3 line when scrolling
@@ -31,7 +31,8 @@ set autoindent          " copy the indentation of the previous line
 set smartindent         " auto indent to next level, work on C-like file
 set shiftround          " round the indentation to the nearest multiple of shiftwidth
 
-set foldmethod=indent   " ues indent fold
+set foldmethod=syntax   " ues syntax fold
+set foldlevel=99        " default no fold
  
 set showmatch           " when you insert bracket, 
 set matchtime=1         "    the cursor will briefly jump to the matching one
@@ -48,16 +49,20 @@ set novisualbell        " turn off visual bell
 set visualbell t_vb=    " turn off error beep/flash
 
 
-" set gcr=a:block-blinkon0        " no cursor blink
-" set guioptions-=l               " no scrollbar
-" set guioptions-=L               " |
-" set guioptions-=r               " |
-" set guioptions-=R               " |
-" set guioptions-=m               " no menu
-" set guioptions-=T               " no tool bar
-
 "-----common-----"
 
+" no auto comment new line
+autocmd filetype * set formatoptions-=c formatoptions-=r formatoptions-=o
 
-source $_SOURCE/vimrc.keymap
+"no extra space
+autocmd BufWrite *.cpp,*.h,makefile call DeleteExtraSpaces()
+function DeleteExtraSpaces()
+    :let b:nline= line('.')
+    :%s/\s\+$//e
+    :execute "to ".b:nline
+endfunction
+
+
 source $_SOURCE/vimrc.plugin
+source $_SOURCE/vimrc.keymap
+
